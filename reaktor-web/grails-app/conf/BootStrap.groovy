@@ -1,0 +1,64 @@
+import reaktor.*
+import reaktor.security.*
+import grails.util.Environment
+
+class BootStrap {
+
+	def init = { servletContext ->
+		if(Environment.current == Environment.DEVELOPMENT){
+			def adminRole = new Role(authority:'ROLE_ADMIN').save(flush: true)
+			def userRole = new Role(authority:'ROLE_USER').save(flush: true)
+
+			def testUser = new User(username: 'max', password: 'password', email: "test@gmail.com")
+			testUser.save(flush: true)
+
+
+			UserRole.create(testUser, adminRole, true)
+			UserRole.create(mentorUser, userRole, true)
+		}
+
+		if(Environment.current == Environment.TEST){
+
+			Reaction reaction = new Reaction(user: testUser, status: "calculating", email: "bill@fake.com")
+			reaction.save(flush: true)
+
+			if (!reaction.save()) {
+				reaction.errors.allErrors.each{error -> println "An error occurred with reaction: ${error}" }
+			}
+
+			Molecule methane = new Molecule(name: "Methane")
+			Atom carbon = new Atom(element: 'C', xCoord : 0.32, yCoord : 1.2, zCoord : -0.15, idInMolecule: "a1")
+			Atom hydrogen1 = new Atom(element: 'H', xCoord : 0.456, yCoord : 1.27, zCoord : 1.35, idInMolecule: "a2")
+			Atom hydrogen2 = new Atom(element: 'H', xCoord : 1.2345, yCoord : 1.4, zCoord : 2.43, idInMolecule: "a3")
+			Atom hydrogen3 = new Atom(element: 'H', xCoord : 2, yCoord : 0.30000, zCoord : 0.98, idInMolecule: "a4")
+			Atom hydrogen4 = new Atom(element: 'H', xCoord : 0.7, yCoord : -1.69, zCoord : -1.2, idInMolecule: "a5")
+			methane.addToAtoms(carbon)
+			methane.addToAtoms(hydrogen1)
+			methane.addToAtoms(hydrogen2)
+			methane.addToAtoms(hydrogen3)
+			methane.addToAtoms(hydrogen4)
+			methane.createElementMap()
+
+			if (!methane.save()) {
+				methane.errors.allErrors.each{error -> println "An error occurred with methane: ${error}" }
+			}
+			if (!carbon.save()) {
+				carbon.errors.allErrors.each{error -> println "An error occurred with carbon: ${error}" }
+			}
+
+			Molecule dummyMol = new Molecule(name:"dummy")
+			Atom dummyAtom = new Atom(element: "C", xCoord : 1.2345, yCoord : 1.2345, zCoord : 1.2345, idInMolecule: "a1")
+			dummyMol.addToAtoms(dummyAtom)
+			dummyMol.createElementMap()
+
+			if (!dummyMol.save()) {
+				dummyMol.errors.allErrors.each{error -> println "An error occurred with dummyMol: ${error}" }
+			}
+			if (!dummyAtom.save()) {
+				dummyAtom.errors.allErrors.each{error -> println "An error occurred with dummyAtom: ${error}" }
+			}
+		}
+	}
+	def destroy = {
+	}
+}

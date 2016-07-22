@@ -1,0 +1,11 @@
+DefaultPackage
+reaktor
+reaktor.fileCreator
+reaktor.logging
+reaktor.parser
+reaktor.populator
+reaktor.security
+reaktor.services
+reaktor.uploadr
+reaktor.wrapper
+spring
