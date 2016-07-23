@@ -11,6 +11,6 @@ cache:
     - $HOME/.gradle/wrapper/
     
 install: echo "skip 'gradle assemble' step"
-script: ./reaktor-cluster/gradlew clean build test
+script: ./reaktor-cluster/gradlew clean build jacocoRootReport coveralls alljavadoc --continue
 #script: cd reaktor-web/ && ./grailsw clean && ./grailsw refresh-dependencies && ./grailsw test-app
 
