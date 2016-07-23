@@ -7,6 +7,8 @@ import spock.lang.*
 class FileDeleterSpec extends Specification{
 	JavaFileDeleter fd = new JavaFileDeleter()
 
+
+	@Ignore
 	public "test that deleteFolder deletes folder and everything in it"() {
 		setup:
 		fd.directory = new File("src/test/Test_Folder")
