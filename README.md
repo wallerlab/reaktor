@@ -1,12 +1,10 @@
-# Reaktor
+# *[`http://reaktor.wallerlab.org`](http://reaktor.wallerlab.org)*
 
 [![Apache License](http://img.shields.io/badge/license-APACHE2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/wallerlab/reaktor.svg?branch=master)](https://travis-ci.org/wallerlab/reaktor)
 [![Coverage Status](https://coveralls.io/repos/github/wallerlab/reaktor/badge.svg?branch=master)](https://coveralls.io/github/wallerlab/reaktor?branch=master)
 
 A web app that predicts the possible products of a binary reaction by carrying out quantum chemical calculations in the gas-phase.
-
-*Website: [`http://reaktor.wallerlab.org`](http://reaktor.wallerlab.org)*
 
 ![reaktor2](https://cloud.githubusercontent.com/assets/13583117/16518932/4c871e74-3fb8-11e6-8859-c092a6d1ec7b.png)
 
