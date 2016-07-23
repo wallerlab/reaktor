@@ -8,6 +8,7 @@ import javax.jms.TextMessage
 import cluster.services.workspace.SimpleWorkspaceCreator;
 import spock.lang.*
 
+@Ignore
 class WorkspaceCreatorSpec extends Specification{
 	SimpleWorkspaceCreator wsc = new SimpleWorkspaceCreator()
 	
