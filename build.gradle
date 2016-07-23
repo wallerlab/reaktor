@@ -9,7 +9,7 @@ subprojects {
 
 	dependencies { testCompile 'junit:junit:4.8.2' }
 
-	version = '0.1'
+	version = '0.1.1'
 
 	jar { manifest.attributes provider: 'wallerlab.org' }
 }
