@@ -1,8 +1,12 @@
 apply plugin: 'nexus'
-
-sourceCompatibility = 1.8
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
+ 
 version = '0.1-SNAPSHOT'
 group = 'org.wallerlab'
+
+sourceCompatibility = 1.8
+
 
 buildscript {
 	repositories {
@@ -10,6 +14,8 @@ buildscript {
 	}
 	dependencies {
 		classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.7.1'
+		classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3"
+
 	}
 }
 
@@ -71,5 +77,10 @@ uploadArchives {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '2.0'
+	gradleVersion = '2.3'
+}
+
+coveralls {
+  sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
+  jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
 }
