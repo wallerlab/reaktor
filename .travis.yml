@@ -12,5 +12,5 @@ cache:
     
 install: echo "skip 'gradle assemble' step"
 script: ./reaktor-cluster/gradlew clean build test
-script: ./reaktor-web/grailsw refresh-dependencies && ./reaktor-web/grailsw test-app
+script: ./reaktor-web/grailsw clean && ./reaktor-web/grailsw refresh-dependencies && ./reaktor-web/grailsw test-app
 
