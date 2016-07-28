@@ -1,4 +1,4 @@
-# [`Reaktor`](http://reaktor.wallerlab.org)
+# [`reaktor.wallerlab.org`](http://reaktor.wallerlab.org)
 
 [![Apache License](http://img.shields.io/badge/license-APACHE2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/wallerlab/reaktor.svg?branch=master)](https://travis-ci.org/wallerlab/reaktor)
