@@ -49,7 +49,10 @@ grails.project.dependency.resolution = {
 		compile 'geronimo-spec:geronimo-spec-jms:1.1-rc4'
 		compile 'geronimo-spec:geronimo-spec-j2ee-management:1.0-rc4'
 		compile 'com.google.guava:guava:18.0'
-        compile 'com.atlassian.clover:clover:4.0.2'
+        	compile 'com.atlassian.clover:clover:4.0.2'
+        	build 'org.apache.httpcomponents:httpcore:4.3.2'
+                build 'org.apache.httpcomponents:httpclient:4.3.2'
+                build 'org.apache.httpcomponents:httpmime:4.3.3'
     }
 
     plugins {
