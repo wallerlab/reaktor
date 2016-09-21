@@ -12,5 +12,5 @@ cache:
     
 install: echo "skip 'gradle assemble' step"
 script: ./reaktor-cluster/gradlew clean build jacocoRootReport coveralls javadoc --continue
-#script: cd reaktor-web/ && ./grailsw clean && ./grailsw refresh-dependencies && ./grailsw test-app
+script: cd reaktor-web/ && ./grailsw clean && ./grailsw refresh-dependencies && ./grailsw test-app -coverage -xml
 
