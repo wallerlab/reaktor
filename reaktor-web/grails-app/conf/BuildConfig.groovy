@@ -55,6 +55,15 @@ grails.project.dependency.resolution = {
     plugins {
         // plugins for the build system only
         build ":tomcat:8.0.14.1"
+        
+        // Coveralls plugin
+                build(':coveralls:0.1.4', ':rest-client-builder:1.0.3') {
+                    export = false
+                }
+                test(':code-coverage:2.0.3-3') {
+                    export = false
+                }
+                
 
         // plugins for the compile step
         compile ":scaffolding:2.1.2"
