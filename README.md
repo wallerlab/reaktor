@@ -43,3 +43,6 @@ Web
 
 `./reacktor-web/grailsw run-app`
 
+# Contact us
+wallerlab@protonmail.com
+
