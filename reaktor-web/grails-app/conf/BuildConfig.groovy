@@ -49,7 +49,6 @@ grails.project.dependency.resolution = {
 		compile 'geronimo-spec:geronimo-spec-jms:1.1-rc4'
 		compile 'geronimo-spec:geronimo-spec-j2ee-management:1.0-rc4'
 		compile 'com.google.guava:guava:18.0'
-        	compile 'com.atlassian.clover:clover:4.0.2'
         	build 'org.apache.httpcomponents:httpcore:4.3.2'
                 build 'org.apache.httpcomponents:httpclient:4.3.2'
                 build 'org.apache.httpcomponents:httpmime:4.3.3'
@@ -77,7 +76,6 @@ grails.project.dependency.resolution = {
 		compile ":spring-security-ui:1.0-RC2"
 		compile ":mail:1.0.7"
 		compile ":uploadr:1.0.0"
-		compile ":clover:4.0.2"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
