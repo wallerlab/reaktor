@@ -4,7 +4,7 @@ if [ "$TRAVIS_REPO_SLUG" == "wallerlab/reaktor" ] && [ "$TRAVIS_JDK_VERSION" == 
 
   echo -e "Publishing javadoc...\n"
 
-  cp -R build/docs/javadoc $HOME/javadoc-latest
+  cp -R reaktor-cluster/build/docs/javadoc $HOME/javadoc-latest
 
   cd $HOME
   git config --global user.email "travis@travis-ci.org"
