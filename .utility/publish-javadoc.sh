@@ -9,7 +9,6 @@ if [ "$TRAVIS_REPO_SLUG" == "wallerlab/reaktor" ] && [ "$TRAVIS_JDK_VERSION" == 
   cd $HOME
   git config --global user.email "travis@travis-ci.org"
   git config --global user.name "travis-ci"
-  echo -e "TOKEN is ${GH_TOKEN} \n "
   git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/wallerlab/reaktor gh-pages > /dev/null
 
   cd gh-pages
