@@ -43,6 +43,9 @@ Web
 
 `./reacktor-web/grailsw run-app`
 
+# Documentation
+![javadoc](https://wallerlab.github.io/reaktor/)
+
 # Contact us
 wallerlab@protonmail.com
 
