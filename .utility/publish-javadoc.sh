@@ -4,7 +4,7 @@ if [ "$TRAVIS_REPO_SLUG" == "wallerlab/reaktor" ] && [ "$TRAVIS_JDK_VERSION" == 
 
   echo -e "Publishing javadoc...\n"
 
-  cp -R reaktor-cluster/build/docs/javadoc $HOME/javadoc-latest
+  cp -R reaktor-cluster/build/docs/javadoc $HOME/
 
   cd $HOME
   git config --global user.email "travis@travis-ci.org"
@@ -13,7 +13,7 @@ if [ "$TRAVIS_REPO_SLUG" == "wallerlab/reaktor" ] && [ "$TRAVIS_JDK_VERSION" == 
 
   cd gh-pages
   git rm -rf *
-  cp -Rf $HOME/javadoc-latest ./.
+  cp -Rf $HOME/ ./.
   git add -f .
   git commit -m "Latest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
   git push -fq origin gh-pages > /dev/null
