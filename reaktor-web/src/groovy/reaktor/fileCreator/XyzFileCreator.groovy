@@ -99,8 +99,8 @@ class XyzFileCreator implements FileCreator {
 			return displayFile
 		}
 		displayFile.createNewFile()
-		ArrayList molecules = new ArrayList(reaction.molecules)
-		ArrayList fileArray = createCombinedFileArray(molecules, folder, [0,reaction.molecules.size()])
+		ArrayList molecules = new ArrayList(reaction.reactants)
+		ArrayList fileArray = createCombinedFileArray(molecules, folder, [0,reaction.reactants.size()])
 		displayFile.withWriter(){ out ->
 			fileArray.each{ line ->
 				out.writeLine(line)
