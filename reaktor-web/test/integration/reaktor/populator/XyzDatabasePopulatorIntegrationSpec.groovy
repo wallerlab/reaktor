@@ -117,6 +117,7 @@ class XyzDatabasePopulatorIntegrationSpec extends Specification {
 		"cp test_files/molecule4.xyz ./".execute(null, folder)
 		File file1 = new File(folder, "molecule3.xyz")
 		File file2 = new File(folder, "molecule4.xyz")
+		Thread.sleep(200)
 		
 		when:
 		def molecule = populator.populate(new ArrayList([file1, file2]))
@@ -126,6 +127,7 @@ class XyzDatabasePopulatorIntegrationSpec extends Specification {
 		molecule[1].name == "ethene"
 		
 		cleanup:
+		Thread.sleep(200)
 		"rm butadiene.xyz ethene.xyz".execute(null, folder)
     }
 }
