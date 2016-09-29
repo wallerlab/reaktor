@@ -71,8 +71,8 @@ class XyzFileCreator implements FileCreator {
 	public void createFilesFromMultipleFiles(Reaction reaction){
 		
 		for(int j = 0; j < numFilesToMake; j++){
-			ArrayList startAndEndNums = assignStartAndEndNums(j, reaction.molecules.size())
-			ArrayList molecules = new ArrayList(reaction.molecules)
+			ArrayList startAndEndNums = assignStartAndEndNums(j, reaction.reactants.size())
+			ArrayList molecules = new ArrayList(reaction.reactants)
 			ArrayList startMolsJArray = createCombinedFileArray(molecules, defaultFolder, startAndEndNums)
 			File startMolsJ = new File(defaultFolder, "startMols${j}.xyz")
 			startMolsJ.createNewFile()
@@ -144,9 +144,9 @@ class XyzFileCreator implements FileCreator {
 		int startNum = startAndEndNums[0]
 		int endNum = startAndEndNums[1]
 		int moleculeCount = 0
-		Double maxXVal = findMaxOrMin(false, new File(folder, "${molecules[0].molecule.name}.xyz"), 1)
+		Double maxXVal = findMaxOrMin(false, new File(folder, "${molecules[0].name}.xyz"), 1)
 		for(int k = startNum; k < endNum; k++){
-			File moleculeFile = new File(folder, "${molecules[k].molecule.name}.xyz")
+			File moleculeFile = new File(folder, "${molecules[k].name}.xyz")
 			Double minXVal = findMaxOrMin(false, moleculeFile, 1)
 			Double transVal = maxXVal - minXVal + 0.5
 			maxXVal = findMaxOrMin(true, moleculeFile, 1)
