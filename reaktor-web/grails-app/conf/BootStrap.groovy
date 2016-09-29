@@ -18,6 +18,9 @@ class BootStrap {
 		}
 
 		if(Environment.current == Environment.TEST){
+			
+			def testUser = new User(username: 'max', password: 'password', email: "test@gmail.com")
+			testUser.save(flush: true)
 
 			Reaction reaction = new Reaction(user: testUser, status: "calculating", email: "bill@fake.com")
 			reaction.save(flush: true)
