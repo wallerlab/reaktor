@@ -52,7 +52,6 @@ class ProductCalculatorService {
 			}
 		reaction.status = "enqueued"
 		reaction.save(flush: true)
-		
 	}
 	
 	/*
@@ -60,15 +59,14 @@ class ProductCalculatorService {
 	 *
 	 */
 	private void createReaction(ArrayList moleculesForPyreactor, User reactionUser){
-		
-		reaction = new Reaction(user: reactionUser, status: "waiting for parameters")
+		reaction = new Reaction()
 		for(Molecule molecule : moleculesForPyreactor){
-			MolecRxn molecRxn = new MolecRxn(molecule: molecule, reaction: reaction, role: "reactant")
-			reaction.addToMolecules(molecRxn)
-			molecule.addToMolecRxn(molecRxn)
+			reaction.addToReactants(molecule)
+			molecule.addToReactions(reaction)
 		}
+		reaction.user = reactionUser
+		reaction.status = "waiting for parameters"
 		reaction.save(flush: true)
-		
 	}
 	
 	/*
@@ -76,12 +74,10 @@ class ProductCalculatorService {
 	 * 
 	 */
 	private void createProjectFilePath() {
-		
 		filePath = new File(mainFolder, "ProductData_${reaction.id}/input_files")
 		if (!filePath.exists()){
 			filePath.mkdirs()
 		}
-		
 	}
 	
 	/*
@@ -89,13 +85,11 @@ class ProductCalculatorService {
 	 *
 	 */
 	private List createTwoXyzFiles(){
-		
 		if(reaction.reactants.size() > 2){
 			xyzFileCreator.createFilesFromMultipleFiles(reaction)
 			return new ArrayList(["startMols0", 'startMols1'])
 		}
 		return new ArrayList(reaction.reactants)
-		
 	}
 
 	/*
@@ -103,7 +97,6 @@ class ProductCalculatorService {
 	 * 
 	 */
 	private void createInputFiles(moleculesForPyreactor) {
-		
 		for(int i = 0; i < moleculesForPyreactor.size(); i++){
 			File reactantIFile = new File(defaultFolder, "${moleculesForPyreactor[i]}.xyz")
 			if(reactantIFile.exists()){
@@ -114,7 +107,6 @@ class ProductCalculatorService {
 			}
 		}
 		defineFileCreator.createFile("define.inp", filePath)
-		
 	}
 	
 	/*
@@ -123,7 +115,6 @@ class ProductCalculatorService {
 	 *
 	 */
 	private String createMessageString(){
-		
 		StringBuilder messageString = new StringBuilder()
 		String prefix = ""
 		filePath.eachFile {file ->
@@ -134,6 +125,5 @@ class ProductCalculatorService {
 			}
 		}
 		return messageString
-		
 	}
 }
