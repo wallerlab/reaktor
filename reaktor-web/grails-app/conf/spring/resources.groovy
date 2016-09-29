@@ -13,15 +13,29 @@ beans = {
 		aspect(id:"loggingAspectService",ref: "loggingAspect")
 		
 	}
-	jmsConnectionFactory(SingleConnectionFactory){
-		targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-			brokerURL = 'failover:tcp://wallerlab.uni-muenster.de:61620'
-		}
-	}
-	noMsgConvertConnectionFactory(SingleConnectionFactory){
-		targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-			brokerURL = 'failover:tcp://wallerlab.uni-muenster.de:61620'
-		}
+	switch(Environment.current){
+		case Environment.TEST:
+			jmsConnectionFactory(SingleConnectionFactory){
+				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
+					brokerURL = 'vm://localhost?broker.persistent=false'
+				}
+			}
+			noMsgConvertConnectionFactory(SingleConnectionFactory){
+				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
+					brokerURL = 'vm://localhost?broker.persistent=false'
+				}
+			}
+		default:
+			jmsConnectionFactory(SingleConnectionFactory){
+				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
+					brokerURL = 'failover:tcp://wallerlab.uni-muenster.de:61620'
+				}
+			}
+			noMsgConvertConnectionFactory(SingleConnectionFactory){
+				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
+					brokerURL = 'failover:tcp://wallerlab.uni-muenster.de:61620'
+				}
+			}
 	}
 	mainFolder(File, "reaktor-workspace"){bean ->
 		bean.autowire = "byName"
