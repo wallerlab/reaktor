@@ -141,6 +141,7 @@ class XyzFileCreatorSpec extends Specification {
 		
 		expect:
 		xfc.createFilesFromMultipleFiles(b)
+		Thread.sleep(200)
 		for(int i = 0; i < a; i++){
 			def file = new File(xfc.defaultFolder, "startMols${i}.xyz")
 			file.exists()
@@ -149,6 +150,7 @@ class XyzFileCreatorSpec extends Specification {
 		}
 		
 		cleanup:
+		Thread.sleep(200)
 		"rm molecule0.xyz molecule1.xyz molecule2.xyz molecule3.xyz molecule4.xyz molecule5.xyz molecule6.xyz".execute(null, xfc.defaultFolder)
 		"rm startMols0.xyz startMols1.xyz startMols2.xyz startMols3.xyz".execute(null, xfc.defaultFolder)
 
