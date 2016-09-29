@@ -90,11 +90,11 @@ class ProductCalculatorService {
 	 */
 	private List createTwoXyzFiles(){
 		
-		if(reaction.molecules.size() > 2){
+		if(reaction.reactants.size() > 2){
 			xyzFileCreator.createFilesFromMultipleFiles(reaction)
 			return new ArrayList(["startMols0", 'startMols1'])
 		}
-		return new ArrayList(reaction.molecules)
+		return new ArrayList(reaction.reactants)
 		
 	}
 
@@ -105,12 +105,12 @@ class ProductCalculatorService {
 	private void createInputFiles(moleculesForPyreactor) {
 		
 		for(int i = 0; i < moleculesForPyreactor.size(); i++){
-			File reactantIFile = new File(defaultFolder, "${moleculesForPyreactor[i].molecule}.xyz")
+			File reactantIFile = new File(defaultFolder, "${moleculesForPyreactor[i]}.xyz")
 			if(reactantIFile.exists()){
-				reactantIFile.renameTo(new File(filePath,"${moleculesForPyreactor[i].molecule}.xyz"))
+				reactantIFile.renameTo(new File(filePath,"${moleculesForPyreactor[i]}.xyz"))
 			}
 			else{
-				xyzFileCreator.createFile(moleculesForPyreactor[i].molecule, filePath)
+				xyzFileCreator.createFile(moleculesForPyreactor[i], filePath)
 			}
 		}
 		defineFileCreator.createFile("define.inp", filePath)
