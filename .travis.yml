@@ -15,7 +15,7 @@ script:
 - sudo apt-get update
 - sudo apt-get install openbabel
 - ./reaktor-cluster/gradlew clean build jacocoRootReport coveralls javadoc --continue
-#-  cd reaktor-web/ && ./grailsw clean && ./grailsw refresh-dependencies && ./grailsw test-app -coverage -xml
+-  cd reaktor-web/ && ./grailsw clean && ./grailsw refresh-dependencies && ./grailsw test-app -coverage -xml
 
 after_success:
 - .utility/publish-javadoc.sh
