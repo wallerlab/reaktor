@@ -1,5 +1,7 @@
 # [`reaktor.wallerlab.org`](http://reaktor.wallerlab.org)
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.wallerlab/reaktor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.wallerlab/reaktor)
+ [ ![Download](https://api.bintray.com/packages/wallerlab/releases/reaktor/images/download.svg) ](https://bintray.com/wallerlab/releases/reaktor/_latestVersion)
 [![Apache License](http://img.shields.io/badge/license-APACHE2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/wallerlab/reaktor.svg?branch=master)](https://travis-ci.org/wallerlab/reaktor)
 [![Coverage Status](https://coveralls.io/repos/github/wallerlab/reaktor/badge.svg?branch=master)](https://coveralls.io/github/wallerlab/reaktor?branch=master)
