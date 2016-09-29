@@ -40,29 +40,27 @@
 						</g:if>
 					</div>
 					<div class="row" style="line-height:200%">
-						<g:if test="${reactionInstance?.molecules}">
+						<g:if test="${reactionInstance?.reactants}">
 							<div class="col-md-3 col-md-push-3 col-size-med">
 								<strong class="text-info" style="font-size:14px">Reactants:</strong>
 							</div>
-							<g:each in="${reactionInstance.molecules}" var="r">
-								<g:if test="${r?.role == 'reactant'}">
+							<g:each in="${reactionInstance.reactants}" var="r">
 								<div class="row">
 									<div class="col-md-3 col-md-offset-6 col-size-sm">
 										<span class="text-info" style="font-size:14px">
-											<g:link controller="molecule" action="show" id="${r?.molecule?.id }">${r?.molecule?.name.encodeAsHTML()}</g:link>
+											<g:link controller="molecule" action="show" id="${r?.id }">${r?.name.encodeAsHTML()}</g:link>
 										</span>
 									</div>
 								</div>
-								</g:if>
 							</g:each>
 						</g:if>
 					</div>
 					<div class="row" style="line-height:200%">
-						<g:if test="${reactionInstance?.hasProducts || reactionInstance?.status == 'finished'}">
+						<g:if test="${reactionInstance?.products || reactionInstance?.status == 'finished'}">
 							<div class="col-md-3 col-md-push-3 col-size-med">
 								<strong class="text-info vpadded" style="font-size:14px">Products:</strong>
 							</div>
-							<g:if test="${!reactionInstance?.hasProducts && reactionInstance?.status.contains('finished') || reactionInstance?.status.contains('error')}">
+							<g:if test="${!reactionInstance?.products && reactionInstance?.status.contains('finished') || reactionInstance?.status.contains('error')}">
 								<div class="col-md-3 col-md-push-3 col-size-sm">
 									<span class="text-info" style="font-size:14px">
 										No products were found for this reaction.
@@ -70,8 +68,7 @@
 								</div>
 							</g:if>
 							<g:else>
-								<g:each in="${reactionInstance.molecules}" var="r">
-									<g:if test="${r?.role == 'product'}">
+								<g:each in="${reactionInstance.products}" var="r">
 									<div class="row">
 										<div class="col-md-2 col-md-offset-6 col-size-sm">
 											<span class="text-info" style="font-size:14px">
@@ -79,7 +76,6 @@
 											</span>
 										</div>
 									</div>
-									</g:if>
 								</g:each>
 							</g:else>
 						</g:if>
