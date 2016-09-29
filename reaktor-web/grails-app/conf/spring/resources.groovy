@@ -29,12 +29,12 @@ beans = {
 		default:
 			jmsConnectionFactory(SingleConnectionFactory){
 				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-					brokerURL = 'vm://localhost?broker.persistent=false'
+					brokerURL = 'vm://localhost'
 				}
 			}
 			noMsgConvertConnectionFactory(SingleConnectionFactory){
 				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-					brokerURL = 'vm://localhost?broker.persistent=false'
+					brokerURL = 'vm://localhost'
 				}
 			}
 			
