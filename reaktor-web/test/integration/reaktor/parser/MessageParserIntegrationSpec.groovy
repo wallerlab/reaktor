@@ -116,7 +116,7 @@ class MessageParserIntegrationSpec extends Specification {
 	
 	void "test that sendMailToUser puts errorSubject and errorMessage in mail"(){
 		setup:
-		Reaction reaction = new Reaction(user:User.findByUsername("mentor"), status: "calculating", reactants: [])
+		Reaction reaction = new Reaction(user:User.findByUsername("max"), status: "calculating", reactants: [])
 		reaction.save(flush: true)
 		mp.reaction = reaction
 		String status = "error"
@@ -152,7 +152,7 @@ class MessageParserIntegrationSpec extends Specification {
 	
 	void "test that sendMailToUser puts finishedSubject and finishedMessage in mail"(){
 		setup:
-		Reaction reaction = new Reaction(user:User.findByUsername("mentor"), status: "calculating", reactants: [])
+		Reaction reaction = new Reaction(user:User.findByUsername("max"), status: "calculating", reactants: [])
 		reaction.save(flush: true)
 		mp.reaction = reaction
 		String status = "finished"
