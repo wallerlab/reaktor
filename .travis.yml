@@ -17,6 +17,7 @@ script:
 - which obabel
 - ./reaktor-cluster/gradlew clean build jacocoRootReport coveralls javadoc --continue
 -  cd reaktor-web/ && ./grailsw clean && ./grailsw refresh-dependencies && ./grailsw test-app -coverage -xml
+- ./grailsw coveralls
 
 after_success:
 - .utility/publish-javadoc.sh
