@@ -100,12 +100,12 @@ class XyzFileCreatorSpec extends Specification {
 		mol2.name >> "unkH6C6"
 		reaction.reactants >> [mol1, mol2]
 		reaction.id >> 2
+		File displayFile = new File(xfc.mainFolder, "ProductData_2/displayFile.xyz")
 		
 		when:
 		xfc.createXyzDisplayFile(reaction)
 		
 		then:
-		File displayFile = new File(xfc.mainFolder, "ProductData_2/displayFile.xyz")
 		displayFile.exists()
 		displayFile.size() == 1170
 		
