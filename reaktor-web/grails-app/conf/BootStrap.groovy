@@ -5,12 +5,17 @@ import grails.util.Environment
 class BootStrap {
 
 	def init = { servletContext ->
+		
+		def testUser = new User(username: 'max', password: 'password', email: "test@gmail.com")
+		testUser.save(flush: true)
+			
+		def mentorUser = new User(username: 'mentor', password: 'password', email: "mentor@gmail.com")
+		mentorUser.save(flush: true)
+		
 		if(Environment.current == Environment.DEVELOPMENT){
 			def adminRole = new Role(authority:'ROLE_ADMIN').save(flush: true)
 			def userRole = new Role(authority:'ROLE_USER').save(flush: true)
 
-			def testUser = new User(username: 'max', password: 'password', email: "test@gmail.com")
-			testUser.save(flush: true)
 
 
 			UserRole.create(testUser, adminRole, true)
@@ -18,9 +23,6 @@ class BootStrap {
 		}
 
 		if(Environment.current == Environment.TEST){
-			
-			def testUser = new User(username: 'max', password: 'password', email: "test@gmail.com")
-			testUser.save(flush: true)
 
 			Reaction reaction = new Reaction(user: testUser, status: "calculating", email: "bill@fake.com")
 			reaction.save(flush: true)
