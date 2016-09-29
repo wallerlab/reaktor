@@ -4,6 +4,7 @@ import reaktor.fileCreator.*
 import reaktor.populator.XyzDatabasePopulator
 import reaktor.parser.MessageParser
 import reaktor.wrapper.OBabelWrapper
+import grails.util.Environment
 
 // Place your Spring DSL code here
 beans = {
