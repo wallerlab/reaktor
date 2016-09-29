@@ -16,9 +16,10 @@ class Reaction {
 	String status
 	Date dateCreated
 	Date lastUpdated
-	boolean hasProducts
 	
-	static hasMany = [molecules: MolecRxn]
+	static mappedBy = [reactants: "reactantReaction", products: "productReaction"]
+	
+	static hasMany = [reactants : Molecule, products : Molecule]
 	static belongsTo = [user: User] //not in plugin
 	
 	String toString(){
@@ -30,13 +31,4 @@ class Reaction {
 		status inList:["finished", "calculating", "waiting for parameters",
 			 "enqueued", "error while calculating", "finished & cleaned", "error & cleaned"]
     }
-	
-	/**
-	 * Changes hasProducts to true if reaction has products
-	 * 
-	 * @return
-	 */
-	public void hasProducts(){
-		hasProducts = molecules.parallelStream().anyMatch({molecule -> molecule.role == "product"})
-	}
 }
