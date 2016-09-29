@@ -12,7 +12,7 @@ import reaktor.parser.XmlDataParser
 class XmlDatabasePopulator implements Populator {
 	
 	private def moleculeXMLNode
-	private ArrayList molecules
+	private ArrayList molecules = []
 
 	/**
 	 * Takes data in the form of nodes from the XMLDataParser
