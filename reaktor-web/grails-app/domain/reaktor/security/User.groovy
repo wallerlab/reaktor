@@ -21,7 +21,7 @@ class User {
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
-		email matches: "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,3})\$"
+		email nullable: true, matches: "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,3})\$"
 	}
 
 	static mapping = {
