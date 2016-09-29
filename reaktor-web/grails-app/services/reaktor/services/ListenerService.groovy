@@ -72,9 +72,8 @@ class ListenerService {
 		//updates reaction
 		Reaction reaction = Reaction.get(reactionID)
 		for (Molecule molecule: productMolecules){
-			MolecRxn molecRxn = new MolecRxn(molecule: molecule, reaction: reaction, role: "product")
-			reaction.addToMolecRxn(molecRxn)
-			molecule.addToMolecRxn(molecRxn)
+			molecule.addToReactions(reaction)
+			reaction.addToProducts(molecule)
 		}
 		reaction.hasProducts()
 		
