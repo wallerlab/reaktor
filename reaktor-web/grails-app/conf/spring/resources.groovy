@@ -15,7 +15,7 @@ beans = {
 		
 	}
 	switch(Environment.current){
-		case Environment.PROD:
+		case Environment.PRODUCTION:
 			jmsConnectionFactory(SingleConnectionFactory){
 				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
 					brokerURL = 'failover:tcp://wallerlab.uni-muenster.de:61620'
