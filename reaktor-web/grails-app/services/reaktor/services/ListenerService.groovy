@@ -75,7 +75,6 @@ class ListenerService {
 			molecule.addToReactions(reaction)
 			reaction.addToProducts(molecule)
 		}
-		reaction.hasProducts()
 		
 	}
 
