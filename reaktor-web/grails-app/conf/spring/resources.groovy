@@ -15,28 +15,29 @@ beans = {
 		
 	}
 	switch(Environment.current){
-		case Environment.TEST:
+		case Environment.PROD:
 			jmsConnectionFactory(SingleConnectionFactory){
 				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-					brokerURL = 'vm://localhost?broker.persistent=false'
+					brokerURL = 'failover:tcp://wallerlab.uni-muenster.de:61620'
 				}
 			}
 			noMsgConvertConnectionFactory(SingleConnectionFactory){
 				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-					brokerURL = 'vm://localhost?broker.persistent=false'
+					brokerURL = 'failover:tcp://wallerlab.uni-muenster.de:61620'
 				}
 			}
 		default:
 			jmsConnectionFactory(SingleConnectionFactory){
 				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-					brokerURL = 'failover:tcp://wallerlab.uni-muenster.de:61620'
+					brokerURL = 'vm://localhost?broker.persistent=false'
 				}
 			}
 			noMsgConvertConnectionFactory(SingleConnectionFactory){
 				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-					brokerURL = 'failover:tcp://wallerlab.uni-muenster.de:61620'
+					brokerURL = 'vm://localhost?broker.persistent=false'
 				}
 			}
+			
 	}
 	mainFolder(File, "reaktor-workspace"){bean ->
 		bean.autowire = "byName"
