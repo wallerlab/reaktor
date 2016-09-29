@@ -14,7 +14,8 @@ class Molecule {
 	String name
 	Map elementMap = [:].withDefault {'0'}
 	
-	static hasMany = [atoms : Atom, molecRxn : MolecRxn]
+	static belongsTo = [reactantReaction: Reaction, productReaction: Reaction]
+	static hasMany = [atoms : Atom, reactions : Reaction]
 	
 	/**
 	 * Creates a map of the number of each element in the molecul 
@@ -72,5 +73,7 @@ class Molecule {
 	}
 	
     static constraints = {
+		reactantReaction nullable: true
+		productReaction nullable: true
     }
 }
