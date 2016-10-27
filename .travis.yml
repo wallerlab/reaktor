@@ -18,8 +18,8 @@ script:
 - ./reaktor-cluster/gradlew clean build jacocoRootReport coveralls javadoc --continue
 -  cd reaktor-web/ && ./grailsw clean && ./grailsw refresh-dependencies && ./grailsw test-app -coverage -xml
 - ./grailsw coveralls
+- ./grailsw prod war reaktor-web-0.1.war
+- curl -T reaktor-web-0.1.war -umpwaller:$BINTRAY_KEY https://api.bintray.com/content/wallerlab/release-candidates/reaktor/0.1.1/reaktor-web-0.1.war
 
 after_success:
 - .utility/publish-javadoc.sh
-
-
