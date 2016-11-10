@@ -24,8 +24,7 @@ Results are polled by Reaktor, and a database is used to store the reactants, pr
 Reaktor can then be used to visualize the products in a 3D interactive viewer.
 
 Reaktor uses the pyReactor code which was written by S. Nandi and A. Ayyappan from the IIT in Kharagpur.
-https://bitbucket.org/anoopmvpa/pyreactor
-
+https://github.com/anooplabiitkgp/PyAR
 
 #Build
 
