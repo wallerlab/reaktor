@@ -29,14 +29,14 @@ beans = {
 		default:
 			jmsConnectionFactory(SingleConnectionFactory){
 				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-					//brokerURL = 'vm://localhost'
-					brokerURL = 'failover:tcp://localhost:61616'
+					brokerURL = 'vm://localhost'
+					//brokerURL = 'failover:tcp://localhost:61616'
 				}
 			}
 			noMsgConvertConnectionFactory(SingleConnectionFactory){
 				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-					//brokerURL = 'vm://localhost'
-					brokerURL = 'failover:tcp://localhost:61616'
+					brokerURL = 'vm://localhost'
+					//brokerURL = 'failover:tcp://localhost:61616'
 				}
 			}
 			
