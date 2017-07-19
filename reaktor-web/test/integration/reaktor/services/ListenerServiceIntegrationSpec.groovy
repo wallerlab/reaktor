@@ -1,14 +1,14 @@
 package reaktor.services
 
 import spock.lang.*
-import grails.plugin.jms.JmsService
+
 import java.util.concurrent.CountDownLatch
 import javax.jms.Message
 import reaktor.*
 import reaktor.parser.Parser
 import reaktor.populator.Populator
 import reaktor.wrapper.Wrapper
-import reaktor.services.ProductCalculatorService
+
 import static java.util.concurrent.TimeUnit.SECONDS
 
 /**
@@ -23,9 +23,9 @@ class ListenerServiceIntegrationSpec extends Specification {
 	private messageReceived = new CountDownLatch(1)
 
     def setup() { 
-		listenerService.defaultFolder = new File("test/Test_Folder")
+		listenerService.incomingFolder = new File("test/Test_Folder")
 		listenerService.obabel = Mock(Wrapper)
-		listenerService.productCalculatorService = Mock(ProductCalculatorService)
+		listenerService.calculateService = Mock(CalculateService)
 		listenerService.messageParser = Mock(Parser)
 		listenerService.xyzDatabasePopulator = Mock(Populator)
     }
@@ -42,7 +42,7 @@ class ListenerServiceIntegrationSpec extends Specification {
         messageReceived.await(QUEUE_RECEPTION_TIMEOUT_SEC, SECONDS)
 		
 		then:
-		1*listenerService.productCalculatorService.calculateProduct(_,_,_)
+		1*listenerService.calculateService.calculate(_,_,_)
     }
 	
     void "test runMentorReactants calls obabelWrapper"() {
@@ -67,16 +67,21 @@ class ListenerServiceIntegrationSpec extends Specification {
         messageReceived.await(QUEUE_RECEPTION_TIMEOUT_SEC, SECONDS)
 		
 		then:
-		1*listenerService.messageParser.parse(_) >> ["",""]
+		1*listenerService.messageParser.parse(_) >> [new File(listenerService.incomingFolder,
+													 "IncomingFiles/molecule1.xyz"),new File(listenerService.incomingFolder,
+													 "IncomingFiles/molecule3.xyz")]
 	}
 	
-	void "test updateReactionWithProducts calls xyzDatabasePopulator"(){
+	void "test updateReactionWithProducts calls xyzDatabasePopulator.populate"(){
 		setup:
 		Molecule molecule1 = Molecule.findByName("Methane")
 		Molecule molecule2 = Molecule.findByName("dummy")
 		
 		when:
-		listenerService.messageParser.parse(_) >> ["",""]
+		listenerService.obabel.run(_) >> ["C","CC"]
+		listenerService.messageParser.parse(_) >> [new File(listenerService.incomingFolder,
+				"IncomingFiles/molecule1.xyz"),new File(listenerService.incomingFolder,
+				"IncomingFiles/molecule3.xyz")]
 		jmsService.send(queue:"wallerlab.productQueue", "message") {Message msg ->
 				msg.setCorrelationId("1")
 				msg
@@ -86,30 +91,17 @@ class ListenerServiceIntegrationSpec extends Specification {
 		then:
 		1*listenerService.xyzDatabasePopulator.populate(_) >> [molecule1, molecule2]
 	}
-	
-	void "test updateReactionWithProducts updates molecule reactions"(){
+	//@IgnoreRest
+	void "test updateReactionWithProducts updates molecules and reaction"(){
 		when:
-		listenerService.messageParser.parse(_) >> ["",""]
-		Molecule molecule1 = Molecule.findByName("Methane")
-		Molecule molecule2 = Molecule.findByName("dummy")
-		listenerService.xyzDatabasePopulator.populate(_) >> [molecule1, molecule2]
-		jmsService.send(queue:"wallerlab.productQueue", "message") {Message msg ->
-				msg.setCorrelationId("1")
-				msg
-			}
-        messageReceived.await(QUEUE_RECEPTION_TIMEOUT_SEC, SECONDS)
-		molecule1.reactions.size()
-		
-		then:
-		molecule1.reactions.size() == 1
-		molecule2.reactions.size() == 1
-	}
-	
-	void "test updateReactionWithProducts updates reaction products"(){
-		when:
-		listenerService.messageParser.parse(_) >> ["",""]
-		Molecule molecule1 = Molecule.findByName("Methane")
-		Molecule molecule2 = Molecule.findByName("dummy")
+		Molecule molecule1 = new Molecule(name: "Ethane", smilesString: "CC")
+		Molecule molecule2 = new Molecule(name: "Propane", smilesString: "CCC")
+		molecule1.save()
+		molecule2.save(flush:true)
+		listenerService.messageParser.parse(_) >> [new File(listenerService.incomingFolder,
+				"IncomingFiles/molecule1.xyz"),new File(listenerService.incomingFolder,
+				"IncomingFiles/molecule3.xyz")]
+		listenerService.obabel.run(_) >> ["C","CC"]
 		listenerService.xyzDatabasePopulator.populate(_) >> [molecule1, molecule2]
 		jmsService.send(queue:"wallerlab.productQueue", "message") {Message msg ->
 				msg.setCorrelationId("1")
@@ -118,7 +110,9 @@ class ListenerServiceIntegrationSpec extends Specification {
         messageReceived.await(QUEUE_RECEPTION_TIMEOUT_SEC, SECONDS)
 		
 		then:
-		Reaction reaction = Reaction.findById(new Long(1))
-		reaction.products.size() == 2
+		Molecule.findByName("Ethane").productReaction.id == 1
+		Molecule.findByName("Propane").productReaction.id == 1
+		Reaction.findById(1).products.size() == 2
 	}
+
 }

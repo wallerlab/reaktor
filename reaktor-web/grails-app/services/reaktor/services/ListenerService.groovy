@@ -4,7 +4,6 @@ import grails.transaction.Transactional
 import grails.plugin.jms.Queue
 
 import reaktor.*
-import reaktor.populator.XyzDatabasePopulator
 import reaktor.security.User
 
 /**
@@ -19,8 +18,8 @@ class ListenerService {
 
 	//beans
 	def obabel
-	def defaultFolder
-	def productCalculatorService
+	def incomingFolder
+	def calculateService
 	def xyzDatabasePopulator
 	def messageParser
 
@@ -42,13 +41,12 @@ class ListenerService {
 			//converts smiles string to xyz format and writes to file
 			obabel.run(smilesStringsList[i], "molecule${i}.xyz")
 			//add for productCalculatorService
-			xyzFiles.add(new File(defaultFolder, "molecule${i}.xyz"))
+			xyzFiles.add(new File(incomingFolder, "molecule${i}.xyz"))
 		}
 
 		//runs productCalculatorService
 		User mentorUser = User.findByUsername("mentor")
-		productCalculatorService.calculateProduct(xyzFiles, mentorUser,
-			 new XyzDatabasePopulator())
+		calculateService.calculate(xyzFiles, mentorUser, "Reaction")
 		
 	}
 
@@ -67,14 +65,20 @@ class ListenerService {
 		ArrayList productData = messageParser.parse(msg)
 		
 		//populates database
-		ArrayList productMolecules = xyzDatabasePopulator.populate(productData)
+		Map productMap = [:]
+		for(File xyzFile: productData){
+			String smilesString = obabel.run(xyzFile)
+			productMap.put(smilesString, xyzFile)
+		}
+		ArrayList productMolecules = xyzDatabasePopulator.populate(productMap)
 		
 		//updates reaction
 		Reaction reaction = Reaction.get(reactionID)
-		for (Molecule molecule: productMolecules){
-			molecule.addToReactions(reaction)
+		for(Molecule molecule : productMolecules){
 			reaction.addToProducts(molecule)
+			molecule.setProductReaction(reaction)
 		}
+		reaction.save(flush: true)
 		
 	}
 

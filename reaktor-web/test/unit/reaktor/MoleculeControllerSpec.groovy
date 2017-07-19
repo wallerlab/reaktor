@@ -13,6 +13,7 @@ class MoleculeControllerSpec extends Specification {
     def populateValidParams(params) {
         assert params != null
 		params["name"] = "specName"
+        params["smilesString"] = "cccc"
     }
 
     void "Test the index action returns the correct model"() {

@@ -21,71 +21,72 @@ class MessageParserSpec extends Specification {
 	
     void "test that populateReactionFolder creates start, trajectory, and product folders"() {
 		setup:
-		mp.reactionFolder = new File(testFolder,"ProductData_10000")
-		mp.reactionFolder.mkdir()
+		File reactionFolder = new File(testFolder,"AggregationData_10000/input_files")
+		reactionFolder.mkdirs()
 		
 		when:
 		def foldersWithFiles = new File(testFolder,"msgParserTest.txt").text.split('#')
-		mp.populateReactionFolder(foldersWithFiles)
+		mp.populateReactionFolder(foldersWithFiles, reactionFolder)
 		
 		then:
-		new File(mp.reactionFolder, "starting_structures").exists()
-		new File(mp.reactionFolder, "trajectory_geom").exists()
-		new File(mp.reactionFolder, "product_geom").exists()
+		new File(reactionFolder, "starting_structures").exists()
+		new File(reactionFolder, "trajectory_geom").exists()
+		new File(reactionFolder, "product_geom").exists()
 		
 		cleanup:
-		mp.reactionFolder.deleteDir()
+		reactionFolder.deleteDir()
     }
 	
     void "test that populateReactionFolder creates files in those folders"() {
 		setup:
-		mp.reactionFolder = new File(testFolder,"ProductData_10000")
-		mp.reactionFolder.mkdir()
+		File reactionFolder = new File(testFolder,
+				"AggregationData_10000/input_files")
+		reactionFolder.mkdirs()
 		
 		when:
 		String[] foldersWithFiles = new File(testFolder,"msgParserTest.txt").text.split("#")
-		mp.populateReactionFolder(foldersWithFiles)
+		mp.populateReactionFolder(foldersWithFiles, reactionFolder)
 		
 		then:
-		new File(mp.reactionFolder, "starting_structures").list().length == 3
-		new File(mp.reactionFolder, "trajectory_geom").list().length == 3
-		new File(mp.reactionFolder, "product_geom").list().length == 4
+		new File(reactionFolder, "starting_structures").list().length == 3
+		new File(reactionFolder, "trajectory_geom").list().length == 3
+		new File(reactionFolder, "product_geom").list().length == 4
 		
 		cleanup:
-		mp.reactionFolder.deleteDir()
+		reactionFolder.deleteDir()
     }
 
     void "test that populateReactionFolder writes text to those files"() {
 		setup:
-		mp.reactionFolder = new File(testFolder,"ProductData_10000")
-		mp.reactionFolder.mkdir()
+		File reactionFolder = new File(testFolder,"AggregationData_10000")
+		reactionFolder.mkdirs()
 		
 		when:
 		String[] foldersWithFiles = new File(testFolder,"msgParserTest.txt").text.split("#")
-		mp.populateReactionFolder(foldersWithFiles)
+		mp.populateReactionFolder(foldersWithFiles, reactionFolder)
 		
 		then:
-		new File(mp.reactionFolder, "starting_structures/start_0.xyz").text.length() == 740
-		new File(mp.reactionFolder, "trajectory_geom/trj_1.xyz").text.length() == 230264
-		new File(mp.reactionFolder, "product_geom/product_25.xyz").text.length() == 608
+		new File(reactionFolder, "starting_structures/start_0.xyz").text.length() == 740
+		new File(reactionFolder, "trajectory_geom/trj_1.xyz").text.length() == 230264
+		new File(reactionFolder, "product_geom/product_25.xyz").text.length() == 608
 		
 		cleanup:
-		mp.reactionFolder.deleteDir()
+		reactionFolder.deleteDir()
     }
 
     void "test that populateReactionFolder returns string with only product data"() {
 		setup:
-		mp.reactionFolder = new File(testFolder,"ProductData_10000")
-		mp.reactionFolder.mkdir()
+		File reactionFolder = new File(testFolder,"AggregationData_10000")
+		reactionFolder.mkdirs()
 		
 		when:
 		String[] foldersWithFiles = new File(testFolder,"msgParserTest.txt").text.split("#")
-		ArrayList moleculeData = mp.populateReactionFolder(foldersWithFiles)
+		ArrayList moleculeData = mp.populateReactionFolder(foldersWithFiles, reactionFolder)
 		
 		then:
 		moleculeData.size == 4
 		
 		cleanup:
-		mp.reactionFolder.deleteDir()
+		reactionFolder.deleteDir()
     }
 }

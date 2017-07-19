@@ -1,7 +1,8 @@
 package cluster.services.workspace;
 
 import javax.jms.TextMessage;
+import java.io.File;
 
 public interface WorkspaceCreator {
-	public void createWorkspace(TextMessage msg);
+	File createWorkspace(TextMessage msg);
 }

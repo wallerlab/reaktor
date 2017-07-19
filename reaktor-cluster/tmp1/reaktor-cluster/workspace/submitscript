@@ -1,0 +1,48 @@
+#!/bin/csh
+# PBS Job
+#PBS -V
+#PBS -N job name
+#PBS -M email
+#PBS -m ae
+#PBS -q cpu
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=220:00:00
+#
+cd $PBS_O_WORKDIR
+
+setenv PARNODES `wc -l $PBS_NODEFILE |gawk '{print $1}'`
+setenv HOSTS_FILE $PBS_NODEFILE
+
+export PARA_ARCH=MPI
+source /usr/qc/TURBOMOLE.6.3/turbo63
+export PARNODES=8
+
+cat $HOSTS_FILE>hosts_file
+# copy everything to the node
+set TMP_DIR=/scratch
+set DIR1=`pwd`
+if (-e $TMP_DIR) then
+  mkdir $TMP_DIR/$PBS_JOBID
+  cp -r $DIR1/* $TMP_DIR/$PBS_JOBID
+  cd $TMP_DIR/$PBS_JOBID
+  setenv GAUSS_SCRDIR $TMP_DIR/$PBS_JOBID
+  set PBS_O_WORKDIR=$TMP_DIR/$PBS_JOBID
+endif
+
+#  Commands for your job
+
+# gaussian example: 
+# run-g09  3.com  3.log 
+pyreactor
+# turbomole optimization example 
+# jobex  > out
+
+
+# copy everything back from the node
+if (-e $TMP_DIR) then
+   cp -r $TMP_DIR/$PBS_JOBID/* $DIR1
+   cd $DIR1
+   set PBS_O_WORKDIR=$DIR1
+   rm -r $TMP_DIR/$PBS_JOBID
+endif
+

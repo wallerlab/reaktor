@@ -19,18 +19,20 @@ class MoleculeController {
 	
 	@Secured(["ROLE_ADMIN", "ROLE_USER"])
 	def show(Molecule moleculeInstance) {
-		File folder = new File(mainFolder, "ProductData_${moleculeInstance.molecRxn[0].reaction.id.toString()}")
-		
-		File file = new File(folder, "product_geom/${moleculeInstance.name}.xyz")
-		if(!file.exists()){
-			file = new File(folder, "input_files/${moleculeInstance.name}.xyz")
-		}
+		def xyzFileString = moleculeInstance.createXyzFileString(mainFolder)
 		StringBuilder fileString = new StringBuilder()
-		file.eachLine {line ->
+		xyzFileString.eachLine {line ->
 			fileString << line.trim()
 			fileString << "\\n"
 		}
-		[xyzFileString : fileString.toString(), name: moleculeInstance.name]
+		println fileString
+		[xyzFileString : fileString, name: moleculeInstance.name]
+	}
+
+	def showInReactionViewer(Molecule moleculeInstance){
+		def xyzFileString = moleculeInstance.createXyzFileString(mainFolder)
+		println xyzFileString.class
+		render (text: xyzFileString, contentType: "text")
 	}
 	
 	def create() {

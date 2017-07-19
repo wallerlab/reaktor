@@ -1,0 +1,34 @@
+     
+     
+ a coord
+ ired 
+ *
+ b all def2-SVP            
+ *
+ eht 
+ y    
+ 0
+ y    
+     
+     
+     
+     
+     
+     
+ dft
+on 
+ func b-p
+ grid m4
+ q
+ ri 
+ on 
+ m  
+        1000
+ q
+ scf
+ iter
+        500
+ conv
+           6
+     
+ q

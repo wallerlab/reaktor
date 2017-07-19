@@ -6,7 +6,6 @@ import reaktor.Atom
 import reaktor.Molecule
 import reaktor.Reaction
 import spock.lang.*
-import reaktor.services.*
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
@@ -14,12 +13,6 @@ import reaktor.services.*
 @TestMixin(GrailsUnitTestMixin)
 class XyzFileCreatorSpec extends Specification {
 	XyzFileCreator xfc = new XyzFileCreator()
-
-    def setup() {
-    }
-
-    def cleanup() {
-    }
 	
 	@Unroll
 	void "test findMaxOrMin finds the max or min"(){
@@ -99,8 +92,9 @@ class XyzFileCreatorSpec extends Specification {
 		Molecule mol2 = Mock()
 		mol2.name >> "unkH6C6"
 		reaction.reactants >> [mol1, mol2]
-		reaction.id >> 2
-		File displayFile = new File(xfc.mainFolder, "ProductData_2/displayFile.xyz")
+		reaction.reactionFolderName >> "ReactionData_2"
+		File displayFile = new File(xfc.mainFolder,
+				"ReactionData_2/displayFile.xyz")
 		
 		when:
 		xfc.createXyzDisplayFile(reaction)
@@ -118,23 +112,24 @@ class XyzFileCreatorSpec extends Specification {
 		setup:
 		xfc.mainFolder = new File("test/Test_Folder/")
 		Reaction reaction = Mock()
-		reaction.id >> 1
+		reaction.reactionFolderName >> "ReactionData_1"
+		File displayFile = new File(xfc.mainFolder,
+				"ReactionData_1/displayFile.xyz")
 		
 		when:
-		xfc.createXyzDisplayFile(reaction)
+		File xyzDisplayFile = xfc.createXyzDisplayFile(reaction)
 		
 		then:
-		File displayFile = new File(xfc.mainFolder, "ProductData_1/displayFile.xyz")
-		displayFile.exists()
+		displayFile == xyzDisplayFile
 	}
 	
 	@Unroll
 	void "test createFilesFromMultipleFiles creates #a files from molecules in reaction"(){
 		setup:
-		xfc.defaultFolder = new File("test/Test_Folder")
+		xfc.incomingFolder = new File("test/Test_Folder")
 		new File("test/Test_Folder/test_files").eachFile{file ->
 			if(file.name.contains("molecule")){
-				new File(xfc.defaultFolder, file.name).write(file.text)
+				new File(xfc.incomingFolder, file.name).write(file.text)
 			}
 		}
 		xfc.numFilesToMake = a
@@ -143,7 +138,7 @@ class XyzFileCreatorSpec extends Specification {
 		xfc.createFilesFromMultipleFiles(b)
 		Thread.sleep(200)
 		for(int i = 0; i < a; i++){
-			def file = new File(xfc.defaultFolder, "startMols${i}.xyz")
+			def file = new File(xfc.incomingFolder, "startMols${i}.xyz")
 			file.exists()
 			file.readLines()[0] == c[i]
 			file.readLines().size() == d[i]
@@ -151,8 +146,8 @@ class XyzFileCreatorSpec extends Specification {
 		
 		cleanup:
 		Thread.sleep(200)
-		"rm molecule0.xyz molecule1.xyz molecule2.xyz molecule3.xyz molecule4.xyz molecule5.xyz molecule6.xyz".execute(null, xfc.defaultFolder)
-		"rm startMols0.xyz startMols1.xyz startMols2.xyz startMols3.xyz".execute(null, xfc.defaultFolder)
+		"rm molecule0.xyz molecule1.xyz molecule2.xyz molecule3.xyz molecule4.xyz molecule5.xyz molecule6.xyz".execute(null, xfc.incomingFolder)
+		"rm startMols0.xyz startMols1.xyz startMols2.xyz startMols3.xyz".execute(null, xfc.incomingFolder)
 
 		where:
 		a	|	b								|	c							|	d

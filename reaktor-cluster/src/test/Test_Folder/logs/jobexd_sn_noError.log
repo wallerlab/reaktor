@@ -1,0 +1,375 @@
+CODE   
+PROGS  ridft  rdgrad   statpt
+FUNC   b-p
+DFT-D3 y
+DFT-D2 n
+BJ-dmp n
+cycles 100
+AFIR gamma value  100
+Cycle number:  1
+mv: job.out: No such file or directory
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  2
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  3
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  4
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  5
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  6
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  7
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  8
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  9
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  10
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  11
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  12
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  13
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  14
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  15
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  16
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  17
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  18
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  19
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  20
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  21
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  22
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  23
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  24
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  25
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  26
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  27
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  28
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  29
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  30
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  31
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  32
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  33
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  34
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  35
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  36
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  37
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  38
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  39
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  40
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  41
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  42
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  43
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  44
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  45
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  46
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  47
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  48
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  49
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  50
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  51
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  52
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  53
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  54
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  55
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  56
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  57
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  58
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  59
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  60
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  61
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  62
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  63
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  64
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  65
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  66
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  67
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  68
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  69
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  70
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  71
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  72
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+Cycle number:  73
+ ridft ended normally
+ rdgrad ended normally
+ AFIR-dftd3 with zero-correction complete
+  statpt ended normally
+converged

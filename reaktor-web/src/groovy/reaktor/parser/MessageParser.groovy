@@ -20,9 +20,6 @@ class MessageParser implements Parser {
 	@Resource
 	private def mainFolder
 	
-	Reaction reaction
-	File reactionFolder
-	
 	@Value('${mail.error.subject}')
 	String errorSubject
 	
@@ -42,23 +39,22 @@ class MessageParser implements Parser {
 	 */
 	@Override
 	public Object parse(Object msg) {
+		//TODO: populate the right folders for the right calc type
 		
 		(TextMessage) msg
-		reaction = Reaction.get(Long.parseLong(msg.getJMSCorrelationID()))
-		reactionFolder = new File(mainFolder, "ProductData_"+msg.getJMSCorrelationID())
+		Reaction reaction = Reaction.get(Long.parseLong(msg.getJMSCorrelationID()))
+		File reactionFolder = new File(mainFolder, reaction.reactionFolderName)
 		String[] foldersWithFiles = msg.getText().split("#")
 		ArrayList moleculeData = []
 		if(foldersWithFiles[0] == "Error"){
 			reaction.status = "error while calculating"
-			reaction.save(flush: true)
-			sendMailToUser("error")
 		}
 		else{
-			moleculeData = populateReactionFolder(foldersWithFiles);
+			moleculeData = populateReactionFolder(foldersWithFiles, reactionFolder);
 			reaction.status = "finished"
-			reaction.save(flush: true)
-			sendMailToUser("finished")
 		}
+		reaction.save(flush: true)
+		sendMailToUser(reaction)
 		return moleculeData
 		
 	}
@@ -67,7 +63,8 @@ class MessageParser implements Parser {
 	 * Sends mail to user updating them on the status of their finished calculation
 	 * 
 	 */
-	private void sendMailToUser(String status) {
+	private void sendMailToUser(reaction) {
+		String status = reaction.status.tokenize()[0]
 		String mailSubject = this["${status}Subject"]
 		String mailMessage = this["${status}Message"]
 		mailService.sendMail{
@@ -82,12 +79,13 @@ class MessageParser implements Parser {
 	 * Populates reaction folder with files and folders from message
 	 * 
 	 */
-	private List populateReactionFolder(String[] foldersWithFiles) {
+	private List populateReactionFolder(String[] foldersWithFiles, File reactionFolder) {
 		
 		ArrayList moleculeData = []
 		for (String folderAndFiles : foldersWithFiles) {
 			String[] folderAndFilesSeparated = folderAndFiles.split(";")
-			File folder = new File(reactionFolder, folderAndFilesSeparated[0])
+			File folder = new File(reactionFolder,
+					folderAndFilesSeparated[0])
 			folder.mkdir()
 			//make sure folder isn't empty
 			if(folderAndFilesSeparated.size() > 1){

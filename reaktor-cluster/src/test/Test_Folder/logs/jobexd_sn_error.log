@@ -1,0 +1,17 @@
+CODE   
+PROGS  ridft  rdgrad   statpt
+FUNC   
+DFT-D3 y
+DFT-D2 n
+BJ-dmp n
+cycles 100
+AFIR gamma value  100
+Cycle number:  1
+mv: job.out: No such file or directory
+ ridft ended abnormally
+program stopped.
+ rdgrad ended abnormally
+program stopped.
+STOP must stop!
+ AFIR-dftd3 with zero-correction complete
+energy or dftd3 step seems to be in error

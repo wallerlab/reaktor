@@ -44,10 +44,3 @@ if (-e $TMP_DIR) then
    export PBS_O_WORKDIR=$DIR1
    rm -r $TMP_DIR/$PBS_JOBID
 endif
-
-
-
-
-/var/spool/torque/mom_priv/jobs/53391.lyra.uni-muenster.de.SC: line 12: export: `1': not a valid identifier
-/var/spool/torque/mom_priv/jobs/53391.lyra.uni-muenster.de.SC: line 13: export: `/var/spool/torque/aux//53391.lyra.uni-muenster.de': not a valid identifier
-/var/spool/torque/mom_priv/jobs/53391.lyra.uni-muenster.de.SC: line 48: syntax error: unexpected end of file

@@ -5,26 +5,7 @@
 	<div class="box-content padded scrollable text-center" style="height: 552px; overflow-y: auto">
 		<script type="text/javascript" class="init">
 			$(document).ready(function() {
-				$('#example').DataTable({
-					"paging":   false,
-					"filter": false,
-					"info": false,
-		        	"ajax": "${createLink(controller:'reaction',action: 'getUserIndex')}",		       
-		        	"columns": [	  
-		    			{ "data": "id"},      
-		            	{ "data": "molecules", "render": "[, ].molecule.name" },
-		 		    	{ "data": "status" },
-		            	{ "data": "lastUpdated" }           
-		        	],
-		        	"columnDefs": [
-		   		     	{
-		   		     		"render": function (data, display, row) {
-		   			    		var displayData = "<a href='reaction/show/"+data+"' class='btn btn-sm btn-info'>"+data+"</a>";
-		   		        		return displayData;
-		   		        	},
-		   		        	"targets": 0
-		   		      	}]   
-		    	});
+			    loadTable();
 
 				$('#example tbody').on('click', 'tr', function() {
 					var reactionID = $('td', this).eq(0).text();
@@ -32,6 +13,30 @@
 				});
 
 			});
+
+			function loadTable(){
+                $('#example').DataTable({
+                    "paging":   false,
+                    "filter": false,
+                    "info": false,
+                    "ajax": "${createLink(controller:'reaction',action: 'getUserIndex')}",
+                    "columns": [
+                        { "data": "id"},
+                        { "data": "reactants", "render": "[, ].name" },
+                        { "data": "status" },
+						{ "data": "reactionType"},
+                        { "data": "lastUpdated" }
+                    ],
+                    "columnDefs": [
+                        {
+                            "render": function (data, display, row) {
+                                var displayData = "<a href='reaction/show/"+data+"' class='btn btn-sm btn-info'>"+data+"</a>";
+                                return displayData;
+                            },
+                            "targets": 0
+                        }]
+                });
+			}
 		</script>
 	
 		<script type="text/javascript" src="${request.contextPath}/js/ChemDoodleWeb.js"></script>
@@ -63,6 +68,7 @@
 					<th>ID</th>
 					<th>Reactants</th>
 					<th>Status</th>
+					<th>Type</th>
 					<th>Last Updated</th>
 				</tr>
 			</thead>

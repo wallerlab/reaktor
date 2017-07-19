@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<header>
+	<script src="${request.contextPath}/js/marvinjs/gui/lib/promise-1.0.0.min.js"></script>
+	<script src="${request.contextPath}/js/marvinjs/js/marvinjslauncher.js"></script>
+
+
+</header>
 	<meta name="layout" content="core-admin">
 	
 	
@@ -53,15 +59,7 @@
 
 <sec:ifLoggedIn>
 
-<g:if test="${flash.message}">
-	<div class="col-md-12">
-		<div class="box text-center">
-			<div class="box-content padded">
-				<div class="message" role="status" style="color:red"><i class="icon-warning-sign"></i> ${flash.message}</div>
-			</div>
-		</div>
-	</div>
-</g:if>
+	<div id="messageDiv"></div>
 
 <div class="col-md-7">
 	<div class="box text-center">
@@ -69,41 +67,17 @@
     		<div class="title">Draw Molecules</div>
     	</div>	
     	<div class="box-content padded">
-		<p class="news-title">Please draw two molecules, press "Make 3D", then submit.</p>
-		<script type="text/javascript" src="${request.contextPath}/js/marvin/marvin.js"></script>
-		<script type="text/javascript">
-			function exportMol() {
-				if (document.MSketch != null) {
-					if(document.MSketch.getAtomCount() != 0){
-						var s = document.MSketch.getMol("cml:H");
-						document.MolForm.MolTxt1.value = s;
-					}
-					else{
-						document.MolForm.MolTxt1.value = null;
-					}
-				} else {
-					alert("Cannot import molecule:\n"
-							+ "no JavaScript to Java communication in your browser.\n");
-				}
-			}
-			function clean3D() {
-				if (document.MSketch != null) {
-					document.MSketch.clean3D();
-				}
-			}
+		<p class="news-title">Please draw two molecules, then choose either
+		Reaction or Aggregation.</p>
 
-			msketch_name = "MSketch";
-			msketch_begin("${request.contextPath}/js/marvin", 520, 445);
-			msketch_end();
-		</script>
-		<p>
-			<input class="btn btn-blue" value="Make 3D" onClick="clean3D()">
-			<g:form name="MolForm" controller="calculate">
-				<g:hiddenField name="MolTxt1" />
-				<g:actionSubmit class="btn btn-blue" value="Submit" onClick="exportMol()"
-					action="calculate"></g:actionSubmit>
-			</g:form>
-		</p>
+			<g:render template="marvinjs"/>
+
+			<p>
+			<button class="btn btn-blue" id="reaction">Reaction</button>
+			<button class="btn btn-blue" id="aggregation">Aggregation</button>
+			</p>
+
+
 		</div>
 	</div>
 	
@@ -149,7 +123,7 @@
                 
                 
 		<%--Reaction Viewer--%>
-	<div class="col-md-12">
+	<div class="col-md-12" id="userIndex">
         <g:render template="userindex"/>
   </div>
   </div>

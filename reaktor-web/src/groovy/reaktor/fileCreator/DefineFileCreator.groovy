@@ -1,7 +1,6 @@
 package reaktor.fileCreator
 
-import reaktor.Reaction;
-import reaktor.services.ProductCalculatorService
+import reaktor.Reaction
 
 /**
  * Creates a "define.inp" file to be used by turbomole.

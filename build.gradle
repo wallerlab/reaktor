@@ -2,12 +2,11 @@ subprojects {
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
 	apply plugin: 'groovy'
+	apply plugin: 'idea'
 
 	repositories {
 		mavenCentral()
 	}
-
-	dependencies { testCompile 'junit:junit:4.8.2' }
 
 	version = '0.1.1'
 

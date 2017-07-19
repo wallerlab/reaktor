@@ -17,6 +17,8 @@
   <!-- DataTables CSS -->
   <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.css">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <script src="${request.contextPath}/core-admin/release_bs3/build/javascripts/application.js" type="text/javascript"></script>
   
   <style type="text/css" class="init">
@@ -35,7 +37,7 @@
 <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
-    <a class="navbar-brand" href="/reaktor">Reaktor</a>
+    <a class="navbar-brand" href="${createLink(uri:'')}">Reaktor</a>
 
     
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-primary">

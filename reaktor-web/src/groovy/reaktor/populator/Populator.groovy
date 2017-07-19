@@ -1,7 +1,7 @@
-package reaktor.populator;
+package reaktor.populator
 
-public interface Populator {
+interface Populator {
 	
-	public ArrayList populate(Object data);
+	ArrayList populate(Map<String,File> data)
 	
 }

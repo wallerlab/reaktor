@@ -1,7 +1,5 @@
 package reaktor.parser
 
-import java.io.File;
-
 import javax.jms.TextMessage
 import reaktor.Reaction
 
@@ -48,7 +46,7 @@ class MessageParserIntegrationSpec extends Specification {
 		msg.getJMSCorrelationID() >> "1"
 		msg.getText() >> new File(mp.mainFolder,"msgParserTest.txt").text
 		mp.mailService = Mock(MailService)
-		def productFolder = new File(mp.mainFolder, "ProductData_1")
+		def productFolder = new File(mp.mainFolder, "ReactionData_1")
 		
 		when:
 		Reaction reaction = Reaction.get(new Long(1))
@@ -82,7 +80,7 @@ class MessageParserIntegrationSpec extends Specification {
 	
 	void "test that parse returns an ArrayList if no error has occurred"(){
 		setup:
-		def productFolder = new File(mp.mainFolder, "ProductData_1")
+		def productFolder = new File(mp.mainFolder, "ReactionData_1")
 		TextMessage msg = Mock()
 		msg.getJMSCorrelationID() >> "1"
 		msg.getText() >> new File(mp.mainFolder,"msgParserTest.txt").text
@@ -103,11 +101,12 @@ class MessageParserIntegrationSpec extends Specification {
 	
 	void "test that sendMailToUser calls mailService.sendMail"(){
 		setup:
-		String status = "error"
+		Reaction reaction = new Reaction(user:User.findByUsername("max"), status: "error while calculating", reactants: [])
+		reaction.save(flush: true)
 		mp.mailService = Mock(MailService)
 		
 		when:
-		def moleculeData = mp.sendMailToUser(status)
+		mp.sendMailToUser(reaction)
 		
 		then:
 		1*mp.mailService.sendMail(_)
@@ -116,10 +115,8 @@ class MessageParserIntegrationSpec extends Specification {
 	
 	void "test that sendMailToUser puts errorSubject and errorMessage in mail"(){
 		setup:
-		Reaction reaction = new Reaction(user:User.findByUsername("max"), status: "calculating", reactants: [])
+		Reaction reaction = new Reaction(user:User.findByUsername("max"), status: "error while calculating", reactants: [])
 		reaction.save(flush: true)
-		mp.reaction = reaction
-		String status = "error"
 		mp.mailService = Mock(MailService)
 		mp.errorSubject = "Your reaction has encountered an error"
 		mp.errorMessage = "Your reaction has encountered an error."
@@ -136,7 +133,7 @@ class MessageParserIntegrationSpec extends Specification {
 		MessageParserMailTestHelper mpmth2 = new MessageParserMailTestHelper()
 		
 		when:
-		def moleculeData = mp.sendMailToUser(status)
+		mp.sendMailToUser(reaction)
 		
 		then:
 		1*mp.mailService.sendMail({Closure realClosure ->
@@ -152,10 +149,8 @@ class MessageParserIntegrationSpec extends Specification {
 	
 	void "test that sendMailToUser puts finishedSubject and finishedMessage in mail"(){
 		setup:
-		Reaction reaction = new Reaction(user:User.findByUsername("max"), status: "calculating", reactants: [])
+		Reaction reaction = new Reaction(user:User.findByUsername("max"), status: "finished", reactants: [])
 		reaction.save(flush: true)
-		mp.reaction = reaction
-		String status = "finished"
 		mp.mailService = Mock(MailService)
 		mp.finishedSubject = "Your reaction is finished"
 		mp.finishedMessage = "Your reaction is finished. You can now see the products on our website:\nreaktor.wallerlab.org"
@@ -172,7 +167,7 @@ class MessageParserIntegrationSpec extends Specification {
 		MessageParserMailTestHelper mpmth2 = new MessageParserMailTestHelper()
 		
 		when:
-		def moleculeData = mp.sendMailToUser(status)
+		mp.sendMailToUser(reaction)
 		
 		then:
 		1*mp.mailService.sendMail({Closure realClosure ->

@@ -21,12 +21,16 @@
 						<th><g:message code="reaction.user.label" default="ID" /></th>
 					
 						<g:sortableColumn property="molecules" title="${message(code: 'reaction.status.label', default: 'Reactants')}" />
+
+						<g:sortableColumn property="reactionType" title="${message(code: 'reaction.status.label', default: 'Type')}" />
 					
 						<g:sortableColumn property="status" title="${message(code: 'reaction.status.label', default: 'Status')}" />
 					
 						<g:sortableColumn property="lastUpdated" title="${message(code: 'reaction.status.label', default: 'Last Updated')}" />
 					
 						<g:sortableColumn property="dateCreated" title="${message(code: 'reaction.status.label', default: 'Date Created')}" />
+
+						<g:sortableColumn property="molecules" title="${message(code: 'reaction.status.label', default: 'Products')}" />
 					
 					</tr>
 				</thead>
@@ -36,13 +40,17 @@
 					
 						<td><g:link action="show" id="${reactionInstance.id}">${fieldValue(bean: reactionInstance, field: "id")}</g:link></td>
 					
-						<td>${fieldValue(bean: reactionInstance, field: "molecules")}</td>
+						<td>${fieldValue(bean: reactionInstance, field: "reactants")}</td>
+
+						<td>${fieldValue(bean: reactionInstance, field: "reactionType")}</td>
 					
 						<td>${fieldValue(bean: reactionInstance, field: "status")}</td>
 					
 						<td>${fieldValue(bean: reactionInstance, field: "lastUpdated")}</td>
 					
 						<td>${fieldValue(bean: reactionInstance, field: "dateCreated")}</td>
+
+						<td>${fieldValue(bean: reactionInstance, field: "products")}</td>
 					
 					</tr>
 				</g:each>

@@ -4,6 +4,7 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import org.apache.log4j.Logger;
 
 @Secured(['ROLE_ADMIN'])
 @Transactional(readOnly = true)
@@ -13,6 +14,7 @@ class ReactionController {
 	
 	def springSecurityService
 	def jmsService
+    Logger logger = Logger.getLogger("reaktor-web-reactionController")
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)

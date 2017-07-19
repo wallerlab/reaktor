@@ -2,12 +2,11 @@ package reaktor.fileCreator
 
 import java.nio.file.*
 import java.text.DecimalFormat
-import java.util.ArrayList;
 import java.util.stream.Stream
-import reaktor.services.ListenerService
+
 import reaktor.Molecule
 import reaktor.Reaction
-import reaktor.services.ProductCalculatorService
+
 import javax.annotation.Resource
 
 
@@ -20,7 +19,7 @@ import javax.annotation.Resource
 class XyzFileCreator implements FileCreator {
 	
 	@Resource
-	private def defaultFolder
+	private def incomingFolder
 	
 	@Resource
 	private def mainFolder
@@ -73,8 +72,8 @@ class XyzFileCreator implements FileCreator {
 		for(int j = 0; j < numFilesToMake; j++){
 			ArrayList startAndEndNums = assignStartAndEndNums(j, reaction.reactants.size())
 			ArrayList molecules = new ArrayList(reaction.reactants)
-			ArrayList startMolsJArray = createCombinedFileArray(molecules, defaultFolder, startAndEndNums)
-			File startMolsJ = new File(defaultFolder, "startMols${j}.xyz")
+			ArrayList startMolsJArray = createCombinedFileArray(molecules, incomingFolder, startAndEndNums)
+			File startMolsJ = new File(incomingFolder, "startMols${j}.xyz")
 			startMolsJ.createNewFile()
 			startMolsJ.withWriter(){ out ->
 				startMolsJArray.each{ line ->
@@ -92,15 +91,17 @@ class XyzFileCreator implements FileCreator {
 	 * @return file to be displayed
 	 */
 	public File createXyzDisplayFile(Reaction reaction){
-		
-		File folder = new File(mainFolder, "ProductData_${reaction.id.toString()}/input_files")
-		File displayFile = new File(folder.parent, "displayFile.xyz")
+
+		File folder = new File(mainFolder, reaction.reactionFolderName)
+		println "folder is " + folder
+		File displayFile = new File(folder, "displayFile.xyz")
 		if(displayFile.exists()){
 			return displayFile
 		}
 		displayFile.createNewFile()
 		ArrayList molecules = new ArrayList(reaction.reactants)
-		ArrayList fileArray = createCombinedFileArray(molecules, folder, [0,reaction.reactants.size()])
+		File inputFolder = new File(folder, "input_files")
+		ArrayList fileArray = createCombinedFileArray(molecules, inputFolder, [0,reaction.reactants.size()])
 		displayFile.withWriter(){ out ->
 			fileArray.each{ line ->
 				out.writeLine(line)

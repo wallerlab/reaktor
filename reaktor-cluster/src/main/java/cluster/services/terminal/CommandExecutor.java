@@ -1,5 +1,7 @@
 package cluster.services.terminal;
 
+import java.io.File;
+
 public interface CommandExecutor {
-	public void executeCommand(String command);
+	void executeCommand(String command, File filePath);
 }

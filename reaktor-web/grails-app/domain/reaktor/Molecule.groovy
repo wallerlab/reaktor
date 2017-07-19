@@ -12,13 +12,16 @@ package reaktor
  */
 class Molecule {
 	String name
+	String smilesString
 	Map elementMap = [:].withDefault {'0'}
+	Reaction reactantReaction
+	Reaction productReaction
 	
 	static belongsTo = [reactantReaction: Reaction, productReaction: Reaction]
-	static hasMany = [atoms : Atom, reactions : Reaction]
+	static hasMany = [atoms : Atom]
 	
 	/**
-	 * Creates a map of the number of each element in the molecul 
+	 * Creates a map of the number of each element in the molecule
 	 * 
 	 */
 	void createElementMap() {
@@ -66,6 +69,19 @@ class Molecule {
 			}
 			this.name = nameString
 		}
+	}
+
+	public String createXyzFileString(File mainFolder){
+		//TODO: this probably needs to be changed once I find out aggregationfile structure
+		File folder = new File(mainFolder, reactantReaction?.reactionFolderName)
+		if(folder == null){
+			folder = new File(mainFolder, productReaction.reactionFolderName)
+		}
+		File file = new File(folder, "product_geom/${name}.xyz")
+		if(!file.exists()){
+			file = new File(folder, "input_files/${name}.xyz")
+		}
+		return file.text
 	}
 	
 	String toString() {

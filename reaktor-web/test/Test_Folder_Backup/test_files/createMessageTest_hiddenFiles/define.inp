@@ -1,0 +1,45 @@
+     
+     
+ a coord
+ desy   0.05
+ ired 
+ *
+ b all def2-SVP            
+ *
+ eht 
+     
+           0
+     
+     
+     
+     
+     
+     
+     
+ dft
+on 
+ func
+ b-p
+ grid
+m4                   
+ q
+ ri 
+ on 
+jbas b all def2-SVP
+ m  
+        1000
+ q
+ scf
+ iter
+        100
+ conv
+           7
+ thi
+  1.000000011686097E-007
+           4
+ ints
+ y
+        1000  twoint
+*
+     
+ q

@@ -4,12 +4,13 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +32,11 @@ public class SimpleWorkspaceCreator implements WorkspaceCreator {
 	@Value("${cluster.wsc.submitScript}")
 	private String submitScript;
 
-	@Value("${cluster.wsc.runSimulation}")
-	private String runSimulation;
+	@Value("${cluster.wsc.runReaction}")
+	private String runReaction;
+
+	@Value("${cluster.wsc.runAggregation}")
+	private String runAggregation;
 
 	@Value("${cluster.wsc.simulator}")
 	private String simulator;
@@ -40,19 +44,24 @@ public class SimpleWorkspaceCreator implements WorkspaceCreator {
 	@Value("${cluster.wsc.suffix}")
 	private String suffix;
 
-	public static File filePath;
-	
-	private ArrayList<Path> startFiles;
+	Logger logger = Logger.getLogger("reaktor-cluster-SWC");
 
 	/**
 	 * Creates working folder and files
 	 */
 	@Override
-	public void createWorkspace(TextMessage msg) {
+	public File createWorkspace(TextMessage msg) {
 		
-		createWorkingFolder(msg);
-		writeFilesToFolder(msg);
-		copySubmitScriptToFolder();
+		File filePath = createWorkingFolder(msg);
+		try{
+			ArrayList<String> textForFiles = new ArrayList<>(Arrays.asList(msg.getText().split(",")));
+			String simulationType = getSimulationType(textForFiles);
+			List<Path> startFiles = writeFilesToFolder(textForFiles, filePath);
+			copySubmitScriptToFolder(simulationType, startFiles, filePath);
+		} catch(JMSException e){
+			e.printStackTrace();
+		}
+		return filePath;
 		
 	}
 
@@ -60,27 +69,40 @@ public class SimpleWorkspaceCreator implements WorkspaceCreator {
 	 * Creates the working folder
 	 * 
 	 */
-	private void createWorkingFolder(TextMessage msg) {
-		
+	private File createWorkingFolder(TextMessage msg) {
+
 		try {
 			String folderName = msg.getJMSCorrelationID();
-			filePath = new File(directory, folderName);
+			logger.info("JMS correlation ID: " + folderName);
+			File filePath = new File(directory, folderName);
 			filePath.mkdir();
+			return filePath;
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
+		return null;
 		
+	}
+
+	/*
+	 * Returns simulation type from separated message
+	 *
+	 */
+	private String getSimulationType(ArrayList<String> textForFiles){
+
+		String simulationType = textForFiles.remove(0);
+		return simulationType;
 	}
 
 	/*
 	 * Writes all files and subfolders in text message to folder
 	 * 
 	 */
-	private void writeFilesToFolder(TextMessage msg) {
-		
+	private List<Path> writeFilesToFolder(List<String> textForFiles, File
+			filePath) {
+
+		ArrayList<Path> startFiles = new ArrayList<>();
 		try {
-			startFiles = new ArrayList<Path>();
-			String[] textForFiles = msg.getText().split(",");
 			for (String fileNameAndText : textForFiles) {
 				String[] fileInfo = fileNameAndText.split(":");
 				byte fileText[] = fileInfo[1].getBytes();
@@ -90,24 +112,32 @@ public class SimpleWorkspaceCreator implements WorkspaceCreator {
 					startFiles.add(path);
 				}
 			}
-		} catch (JMSException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+			return startFiles;
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		return startFiles;
 	}
 
 	/*
 	 * Copies the submitscript to working folder, changing necessary variables
 	 * 
 	 */
-	private void copySubmitScriptToFolder() {
-		
+	private void copySubmitScriptToFolder(String simulationType, List<Path>
+			startFiles, File filePath) {
+
 		try {
 			String line, newLine;
 			String jobName = filePath.getName();
-			String runSimulator = runSimulation+startFiles.get(0).getFileName().toString()+" "+startFiles.get(1).getFileName().toString();
+			String runSimulator = "";
+			if(simulationType == "Reaction"){
+				runSimulator = runReaction + startFiles.get(0).getFileName().toString()+" "+startFiles.get(1).getFileName().toString();
+			} else if(simulationType == "Aggregation"){
+				runSimulator = runAggregation + startFiles.get(0).getFileName().toString();
+				if(startFiles.size() == 2){
+					runSimulator = runSimulator + " " + startFiles.get(1).getFileName().toString();
+				}
+			}
 			File ssFile = new File(directory, submitScript);
 			File newSSFile = new File(filePath, submitScript);
 			newSSFile.createNewFile();

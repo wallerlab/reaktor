@@ -4,7 +4,6 @@ package reaktor.populator
 
 import reaktor.*
 import spock.lang.*
-import reaktor.wrapper.OBabelWrapper
 
 
 class XyzDatabasePopulatorIntegrationSpec extends Specification {
@@ -14,9 +13,6 @@ class XyzDatabasePopulatorIntegrationSpec extends Specification {
     }
 
     def cleanup() {
-    }
-
-    void "test something"() {
     }
 	
 	void "test createAtomFromXyz creates atom from xyz data"(){
@@ -40,7 +36,7 @@ class XyzDatabasePopulatorIntegrationSpec extends Specification {
 		xyzFile.write(file.text)
 		
 		when:
-		def moleculeCreated = populator.createMoleculeFromXyz(xyzFile)
+		def moleculeCreated = populator.createMoleculeFromXyz(xyzFile, "c1ccccc1")
 		
 		then:
 		moleculeCreated[0].name == "benzene"
@@ -57,7 +53,7 @@ class XyzDatabasePopulatorIntegrationSpec extends Specification {
 		xyzFile.write(file.text)
 		
 		when:
-		def moleculeCreated = populator.createMoleculeFromXyz(xyzFile)
+		populator.createMoleculeFromXyz(xyzFile, "c1ccccc1")
 		
 		then:
 		new File(folder, "C6H6.xyz").exists() || new File(folder, "H6C6.xyz").exists()
@@ -78,7 +74,7 @@ class XyzDatabasePopulatorIntegrationSpec extends Specification {
 		xyzFile.write(file.text)
 		
 		when:
-		def moleculeCreated = populator.createMoleculeFromXyz(xyzFile)
+		populator.createMoleculeFromXyz(xyzFile, "c1ccccc1")
 		
 		then:
 		!xyzFile.exists()
@@ -98,9 +94,10 @@ class XyzDatabasePopulatorIntegrationSpec extends Specification {
 		"cp test_files/molecule4.xyz ./".execute(null, folder)
 		File file1 = new File(folder, "molecule3.xyz")
 		File file2 = new File(folder, "molecule4.xyz")
+		Map<String,File> molecMap = ["c1ccccc1":file1, "CC":file2]
 		
 		when:
-		ArrayList molecule = populator.populate(new ArrayList([file1, file2]))
+		ArrayList molecule = populator.populate(molecMap)
 		
 		then:
 		molecule[0] instanceof Molecule
@@ -117,10 +114,11 @@ class XyzDatabasePopulatorIntegrationSpec extends Specification {
 		"cp test_files/molecule4.xyz ./".execute(null, folder)
 		File file1 = new File(folder, "molecule3.xyz")
 		File file2 = new File(folder, "molecule4.xyz")
+		Map<String,File> molecMap = ["c1ccccc1":file1, "CC":file2]
 		Thread.sleep(200)
 		
 		when:
-		def molecule = populator.populate(new ArrayList([file1, file2]))
+		def molecule = populator.populate(molecMap)
 		
 		then:
 		molecule[0].name == "butadiene"

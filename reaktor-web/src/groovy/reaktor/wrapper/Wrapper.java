@@ -1,7 +1,11 @@
 package reaktor.wrapper;
 
+import java.io.File;
+
 public interface Wrapper {
 	
-	void run(Object one, Object two);
+	File run(String smilesString, String outFile);
+
+	String run(File fileToConvert);
 
 }

@@ -19,13 +19,13 @@ class XyzDatabasePopulator implements Populator {
 	 * @returns ArrayList of Molecules
 	 */
 	@Override
-	public ArrayList populate(Object data) {
-		
-		(ArrayList) data
+	public ArrayList populate(Map<String,File> data) {
+
 		ArrayList xyzMoleculesForCalculation = []
 		if(!data.isEmpty()){
-			for(File xyzFile : data){
-				def moleculeToCalculate = createMoleculeFromXyz(xyzFile)
+			for(String smilesString : data.keySet()){
+				def moleculeToCalculate = createMoleculeFromXyz(data[smilesString],
+						smilesString)
 				xyzMoleculesForCalculation.addAll(moleculeToCalculate)
 			}
 		}
@@ -37,11 +37,16 @@ class XyzDatabasePopulator implements Populator {
 	 * Creates molecule in database from xyz file
 	 * 
 	 */
-	private List createMoleculeFromXyz(File xyzFile) {
+	private List<Molecule> createMoleculeFromXyz(File xyzFile, String smilesString) {
 		
-		Integer numAtoms = Integer.parseInt(xyzFile.readLines()[0])
+		//Integer numAtoms = Integer.parseInt(xyzFile.readLines()[0])
 		String moleculeName = xyzFile.readLines()[1].trim()
-		Molecule molecule = new Molecule(name: moleculeName)
+		println "smilesString before -- removed: " + smilesString
+		if(smilesString.contains("--")){
+			smilesString = smilesString.replace("--","")
+		}
+		println "smilesString after -- removed: " + smilesString
+		Molecule molecule = new Molecule(name: moleculeName, smilesString: smilesString)
 		for (int i = 2; i < xyzFile.readLines().size(); i++){
 			String line = xyzFile.readLines()[i]
 			def lineList = line.split("   ").findAll{it.trim() != ""}
@@ -49,9 +54,11 @@ class XyzDatabasePopulator implements Populator {
 			molecule.addToAtoms(atom)
 		}
 		molecule.createElementMap()
-		if (molecule.name == null || molecule.name.startsWith("Energy")) {
+		if (molecule.name == null || molecule.name.startsWith("Energy") ||
+				molecule.name.startsWith("m1")) {
 			molecule.createMoleculeName()
 		}
+		println "molecule name is " + molecule.name
 		molecule.save(flush: true)
 		xyzFile.renameTo(new File(xyzFile.parent,"${molecule.name}.xyz"))
 		return [molecule]

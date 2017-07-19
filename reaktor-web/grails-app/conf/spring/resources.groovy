@@ -29,12 +29,14 @@ beans = {
 		default:
 			jmsConnectionFactory(SingleConnectionFactory){
 				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-					brokerURL = 'vm://localhost'
+					//brokerURL = 'vm://localhost'
+					brokerURL = 'failover:tcp://localhost:61616'
 				}
 			}
 			noMsgConvertConnectionFactory(SingleConnectionFactory){
 				targetConnectionFactory = {ActiveMQConnectionFactory cf ->
-					brokerURL = 'vm://localhost'
+					//brokerURL = 'vm://localhost'
+					brokerURL = 'failover:tcp://localhost:61616'
 				}
 			}
 			
@@ -42,7 +44,7 @@ beans = {
 	mainFolder(File, "reaktor-workspace"){bean ->
 		bean.autowire = "byName"
 	}
-	defaultFolder(File, ref("mainFolder"), "IncomingFiles"){bean ->
+	incomingFolder(File, ref("mainFolder"), "IncomingFiles"){bean ->
 		bean.autowire = "byName"
 	}
 	xyzFileCreator(XyzFileCreator){

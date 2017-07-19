@@ -1,6 +1,6 @@
 package reaktor
 
-import reaktor.services.ProductCalculatorService
+import reaktor.services.CalculateService
 import spock.lang.*
 
 /**
@@ -31,7 +31,7 @@ class CalculateControllerIntegrationSpec extends Specification {
     void "test calculate forwards to result with xyzFileString param"() {
 		when:
 		params.MolTxt1 = "abcde"
-		pcs = Mock(ProductCalculatorService)
+		pcs = Mock(CalculateService)
 		pcs.calculateProduct >> "Test"
 		cc.productCalculatorService = pcs
 		cc.calculate()

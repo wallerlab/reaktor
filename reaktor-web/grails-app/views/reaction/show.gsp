@@ -105,6 +105,7 @@
 					</g:else>
 				</g:if>
 			</div>
+			<div id="test"></div>
 			<g:if test="${reactionInstance?.status == 'finished' || reactionInstance?.status == 'error while calculating'}">
 				<br>
 				<br>
