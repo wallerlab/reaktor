@@ -19,7 +19,8 @@ public class SimpleCommandExecutor implements CommandExecutor {
 	/**
 	 * Given a String, executes it as a terminal command in filePath.
 	 * 
-	 * @param command
+	 * @param command terminal command
+	 * @param filePath path to run command in
 	 * 
 	 */
 	@Override

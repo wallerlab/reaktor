@@ -26,6 +26,7 @@ public class FileTraverser {
     /**
      * Opens file with name fileName
      *
+     * @param fileName name of file to be opened
      */
     public FileTraverser(String fileName){
 
@@ -41,7 +42,7 @@ public class FileTraverser {
      * Looks at file from the last point checked (oldFileSize) to determine
      * if the calculation has ended yet
      *
-     * @param oldFileSize
+     * @param oldFileSize last point in file checked
      * @return whether calculation has ended
      */
     public boolean isCalculationEnded(Long oldFileSize){
@@ -69,7 +70,7 @@ public class FileTraverser {
     /**
      * Gets the size of the file in bytes
      *
-     * @return
+     * @return Long of file size in bytes
      */
     public Long getFileSize(){
 
@@ -85,6 +86,8 @@ public class FileTraverser {
     /**
      * Returns true or false depending on whether the output log indicates
      * whether there was an error with the calculation
+     *
+     * @return if the calculation ended with an error
      */
     public boolean getHasError(){
         return hasError;

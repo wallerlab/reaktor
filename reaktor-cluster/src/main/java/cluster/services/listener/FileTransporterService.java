@@ -35,7 +35,8 @@ public class FileTransporterService {
 	/**
 	 * Sends all files in directory to broker
 	 *
-	 * @param directory
+	 * @param directory where files can be found
+	 * @param hasError if the reaction/aggregation ended with an error
 	 */
 	public void sendNewFiles(File directory, boolean hasError){
 

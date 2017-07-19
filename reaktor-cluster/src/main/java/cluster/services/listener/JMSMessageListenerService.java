@@ -42,7 +42,8 @@ public class JMSMessageListenerService {
 	/**
 	 * Listens to reactant queue in order to start new jobs
 	 * 
-	 * @param message
+	 * @param message message from reaktor-web containing info needed to run
+	 *                   calculation
 	 */
 	@JmsListener(destination="wallerlab.reactantQueue")
 	public void runSimulator(TextMessage message){
@@ -55,7 +56,8 @@ public class JMSMessageListenerService {
 	/**
 	 * Listens to clean queue in order to clean up folders on cluster
 	 * 
-	 * @param message
+	 * @param message message from reaktor-web informing reaktor-cluster to
+	 *                   clean reaction/aggregation files from cluster
 	 */
 	@JmsListener(destination="wallerlab.cleanQueue")
 	public void cleanWorkspace(TextMessage message){
