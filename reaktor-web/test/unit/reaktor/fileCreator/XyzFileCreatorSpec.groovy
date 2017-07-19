@@ -136,7 +136,6 @@ class XyzFileCreatorSpec extends Specification {
 		
 		expect:
 		xfc.createFilesFromMultipleFiles(b)
-		Thread.sleep(200)
 		for(int i = 0; i < a; i++){
 			def file = new File(xfc.incomingFolder, "startMols${i}.xyz")
 			file.exists()
@@ -145,9 +144,14 @@ class XyzFileCreatorSpec extends Specification {
 		}
 		
 		cleanup:
-		Thread.sleep(200)
-		"rm molecule0.xyz molecule1.xyz molecule2.xyz molecule3.xyz molecule4.xyz molecule5.xyz molecule6.xyz".execute(null, xfc.incomingFolder)
-		"rm startMols0.xyz startMols1.xyz startMols2.xyz startMols3.xyz".execute(null, xfc.incomingFolder)
+		for(int i = 0; i <= b.reactants.size(); i++){
+			File fileToDelete = new File(xfc.incomingFolder, "molecule${i}.xyz")
+			fileToDelete.delete()
+		}
+		for(int i=0; i < a; i++){
+			File fileToDelete = new File(xfc.incomingFolder, "startMols${i}.xyz")
+			fileToDelete.delete()
+		}
 
 		where:
 		a	|	b								|	c							|	d
