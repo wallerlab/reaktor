@@ -46,5 +46,5 @@ Web
 [javadoc](https://wallerlab.github.io/reaktor/latest-javadoc)
 
 # Contact us
-wallerlab@protonmail.com
+[contact]https://github.com/wallerlab/reaktor/issues
 
